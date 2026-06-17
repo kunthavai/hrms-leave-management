@@ -1,10 +1,8 @@
-# HRMS - Employee & Leave Management System
+# HRMS Leave Management System
 
-## Overview
+## Project Overview
 
-This project is a Human Resource Management System (HRMS) developed using Laravel. The application provides Employee Management and Leave Management functionalities with role-based access control.
-
-The system allows administrators to manage employees, departments, leave requests, leave approvals, and leave balances while ensuring proper validation and business rules.
+A Human Resource Management System (HRMS) built using Laravel that provides employee management, role-based access control, leave management, leave approval workflows, leave balance tracking, and attendance dashboard statistics.
 
 ---
 
@@ -13,98 +11,162 @@ The system allows administrators to manage employees, departments, leave request
 ### Employee Management
 
 * Add Employee
-* Update Employee
-* View Employee Details
+* Edit Employee
 * Delete Employee
+* Employee Listing
 * Employee Code Validation
-* Department Assignment
-* Pagination for Employee Listing
 
 ### Leave Management
 
 * Apply Leave
-* View Leave Details
-* Delete Leave Request
-* Leave Balance Management
-* Leave Approval Workflow
-* Leave Rejection Workflow
+* Leave Approval / Rejection
+* Leave Balance Tracking
 * Overlapping Leave Validation
-* Sandwich Leave Rule Implementation
+* Sandwich Rule Implementation
+* Leave History
 
-### Role-Based Access Control
+### Role Based Access Control (RBAC)
 
-* Admin Role
-* Employee Role
-* Dynamic Menu Management
-* Role-Menu Mapping using Pivot Tables
+* User Management
+* Role Management
+* Menu Permissions
+* Dynamic Menu Access
+
+### Dashboard
+
+* Total Employees
+* Present Employees
+* Employees On Leave
+* Attendance Summary
 
 ---
 
-## Technical Implementation
+## Technology Stack
 
-The project follows Laravel best practices and assignment requirements.
+* Laravel 12
+* PHP 8+
+* MySQL
+* Bootstrap
+* jQuery
+* Yajra DataTables
+* Laravel Sanctum
 
-### Laravel Features Used
+---
 
-* Latest Laravel Version
-* Eloquent ORM
-* Form Request Validation
-* Database Migrations
-* Database Seeders
-* Eloquent Relationships
-* Pagination
-* Middleware
-* Service / Repository Pattern
-* Route Model Binding
-* Transactions
+## Database Design
 
-### Database Relationships
+### Tables
 
-* User ↔ Roles (Many-to-Many)
-* Role ↔ Menu (Many-to-Many)
-* Department ↔ Employees (One-to-Many)
-* Employee ↔ Leaves (One-to-Many)
-* Leave Type ↔ Leave Balances (One-to-Many)
+* users
+* employees
+* roles
+* role_user
+* menus
+* role_menu
+* leave_types
+* leave_balances
+* leaves
 
-### Validation
+---
 
-Implemented using Laravel Form Request Validation.
+## Database Relationships
 
-Examples:
+### User ↔ Role
 
-* Employee Code Validation
-* Name Validation
-* Email Validation
-* Phone Validation
-* Leave Date Validation
-* Overlapping Leave Validation
+Many-to-Many
 
-### Transactions
+```text
+users
+   ↕
+role_user
+   ↕
+roles
+```
 
-Database transactions are used for critical operations such as:
+### Role ↔ Menu
 
-* Employee Creation
-* Employee Update
-* Leave Approval
-* Leave Rejection
-* Leave Balance Updates
+Many-to-Many
 
-This ensures data consistency and rollback on failure.
+```text
+roles
+   ↕
+role_menu
+   ↕
+menus
+```
 
-### Performance Optimizations
+### User ↔ Leave
 
-* Eager Loading to avoid N+1 Query Problems
-* Pagination for large datasets
-* Repository Pattern for cleaner code structure
+```text
+User
+  |
+  | hasMany
+  ↓
+Leave
+```
+
+### Leave Type ↔ Leave
+
+```text
+LeaveType
+    |
+    | hasMany
+    ↓
+Leave
+```
+
+### User ↔ Leave Balance
+
+```text
+User
+   |
+   | hasMany
+   ↓
+LeaveBalance
+```
+
+---
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard](screenshots/leaveStatistics.png)
+
+### Employee Management
+
+![Employee List](screenshots/employees_history.png)
+
+### Leave List
+
+![Leave List](screenshots/my_leaves_history.png)
+
+### Leave Approval
+
+![Leave Approval](screenshots/leave_approval_requests.png)
+
+### Apply Leave
+
+![Apply Leave](screenshots/apply-leaves.png)
+
+### Add Employee
+
+![Add Employee](screenshots/add_employees.png)
 
 ---
 
 ## Installation
 
-Clone the repository:
+Clone repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/kunthavai/hrms-leave-management.git
+```
+
+Navigate to project:
+
+```bash
+cd hrms-leave-management
 ```
 
 Install dependencies:
@@ -113,7 +175,7 @@ Install dependencies:
 composer install
 ```
 
-Create environment file:
+Copy environment file:
 
 ```bash
 cp .env.example .env
@@ -125,49 +187,148 @@ Generate application key:
 php artisan key:generate
 ```
 
-Configure database credentials in `.env`.
+---
 
-Run migrations and seeders:
+## Database Setup
 
-```bash
-php artisan migrate --seed
+### Option 1 (Recommended)
+
+Import the SQL file provided in:
+
+```text
+db_file/lms.sql
 ```
 
-Start the development server:
+Create a database named:
+
+```text
+lms
+```
+
+Import:
+
+```text
+db_file/lms.sql
+```
+
+Update `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lms
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### Option 2
+
+Run migrations:
+
+```bash
+php artisan migrate
+```
+
+Run seeders:
+
+```bash
+php artisan db:seed
+```
+
+---
+
+## Run Application
 
 ```bash
 php artisan serve
 ```
 
+Application URL:
+
+```text
+http://127.0.0.1:8000
+```
+
 ---
 
-## Default Roles
+## Business Rules Implemented
 
-* Admin
-* Employee
+### Overlapping Leave Validation
+
+Employees cannot apply for leave on dates that overlap with existing leave records.
+
+### Sandwich Rule
+
+Implemented scenarios:
+
+```text
+AB - WO - AB
+```
+
+Weekend counted as leave.
+
+```text
+AB - WO - WO - AB
+```
+
+Both weekends counted as leave.
+
+### Leave Balance Validation
+
+Leave applications are validated against available leave balance before approval.
 
 ---
 
-## Assignment Requirements Covered
+## Project Structure
 
-✔ Use Latest Laravel Version
+```text
+app/
+├── Http/
+├── Models/
+├── Repositories/
+├── Services/
 
-✔ Use Migration & Seeder
+database/
+├── migrations/
+├── seeders/
 
-✔ Use Eloquent Relationships
+resources/
+├── views/
 
-✔ Use Form Request Validation
+routes/
+├── web.php
 
-✔ Use Pagination
+db_file/
+├── lms.sql
 
-✔ Avoid N+1 Queries
+screenshots/
+```
 
-✔ Maintain Proper Code Structure
+---
 
-✔ Use Transactions Wherever Required
+## GitHub Repository
+
+Repository Link:
+
+```text
+https://github.com/kunthavai/hrms-leave-management
+```
+
+---
+
+## Future Enhancements
+
+* Attendance Management
+* Payroll Module
+* Email Notifications
+* Holiday Management
+* Multi-Level Leave Approval
+* Employee Self-Service Portal
+* Reporting Dashboard
 
 ---
 
 ## Author
 
-Developed as part of a Laravel Interview Assignment.
+Kunthavai PK
