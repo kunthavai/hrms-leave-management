@@ -1,59 +1,173 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HRMS - Employee & Leave Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
 
-## About Laravel
+This project is a Human Resource Management System (HRMS) developed using Laravel. The application provides Employee Management and Leave Management functionalities with role-based access control.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The system allows administrators to manage employees, departments, leave requests, leave approvals, and leave balances while ensuring proper validation and business rules.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+### Employee Management
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* Add Employee
+* Update Employee
+* View Employee Details
+* Delete Employee
+* Employee Code Validation
+* Department Assignment
+* Pagination for Employee Listing
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Leave Management
 
-## Laravel Sponsors
+* Apply Leave
+* View Leave Details
+* Delete Leave Request
+* Leave Balance Management
+* Leave Approval Workflow
+* Leave Rejection Workflow
+* Overlapping Leave Validation
+* Sandwich Leave Rule Implementation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Role-Based Access Control
 
-### Premium Partners
+* Admin Role
+* Employee Role
+* Dynamic Menu Management
+* Role-Menu Mapping using Pivot Tables
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## Technical Implementation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+The project follows Laravel best practices and assignment requirements.
 
-## Code of Conduct
+### Laravel Features Used
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Latest Laravel Version
+* Eloquent ORM
+* Form Request Validation
+* Database Migrations
+* Database Seeders
+* Eloquent Relationships
+* Pagination
+* Middleware
+* Service / Repository Pattern
+* Route Model Binding
+* Transactions
 
-## Security Vulnerabilities
+### Database Relationships
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* User ↔ Roles (Many-to-Many)
+* Role ↔ Menu (Many-to-Many)
+* Department ↔ Employees (One-to-Many)
+* Employee ↔ Leaves (One-to-Many)
+* Leave Type ↔ Leave Balances (One-to-Many)
 
-## License
+### Validation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Implemented using Laravel Form Request Validation.
+
+Examples:
+
+* Employee Code Validation
+* Name Validation
+* Email Validation
+* Phone Validation
+* Leave Date Validation
+* Overlapping Leave Validation
+
+### Transactions
+
+Database transactions are used for critical operations such as:
+
+* Employee Creation
+* Employee Update
+* Leave Approval
+* Leave Rejection
+* Leave Balance Updates
+
+This ensures data consistency and rollback on failure.
+
+### Performance Optimizations
+
+* Eager Loading to avoid N+1 Query Problems
+* Pagination for large datasets
+* Repository Pattern for cleaner code structure
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+
+Install dependencies:
+
+```bash
+composer install
+```
+
+Create environment file:
+
+```bash
+cp .env.example .env
+```
+
+Generate application key:
+
+```bash
+php artisan key:generate
+```
+
+Configure database credentials in `.env`.
+
+Run migrations and seeders:
+
+```bash
+php artisan migrate --seed
+```
+
+Start the development server:
+
+```bash
+php artisan serve
+```
+
+---
+
+## Default Roles
+
+* Admin
+* Employee
+
+---
+
+## Assignment Requirements Covered
+
+✔ Use Latest Laravel Version
+
+✔ Use Migration & Seeder
+
+✔ Use Eloquent Relationships
+
+✔ Use Form Request Validation
+
+✔ Use Pagination
+
+✔ Avoid N+1 Queries
+
+✔ Maintain Proper Code Structure
+
+✔ Use Transactions Wherever Required
+
+---
+
+## Author
+
+Developed as part of a Laravel Interview Assignment.
