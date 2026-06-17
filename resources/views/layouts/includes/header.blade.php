@@ -2,7 +2,7 @@
     <div class="container-fluid">
 
         <a class="navbar-brand fw-bold" href="#">
-            QuizApp
+            HRMS System
         </a>
 
         <div class="text-white">

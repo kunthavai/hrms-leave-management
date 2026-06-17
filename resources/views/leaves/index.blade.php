@@ -15,7 +15,7 @@
    <div class="col-lg-12">
 <div class="card">
     <div class="card-header">
-        <strong>Add Employee</strong>
+        <strong>Leave History</strong>
     </div>
     <div class="card-body card-block">
     <table id="leaveTable" class="table table-bordered">

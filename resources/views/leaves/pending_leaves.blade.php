@@ -19,7 +19,7 @@
    <div class="col-lg-12">
 <div class="card">
     <div class="card-header">
-        <strong>Add Employee</strong>
+        <strong>Leave Approval Requests</strong>
     </div>
     <div class="card-body card-block">
     <table

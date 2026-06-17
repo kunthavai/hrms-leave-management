@@ -43,9 +43,8 @@
 
         <hr class="text-secondary">
 
-        <a href="{{ route('logout') }}"
-           class="d-block text-danger text-decoration-none py-2">
-           🚪 Logout
+        <a href="{{ route('logout') }}"class="d-block text-danger text-decoration-none py-2" style="font-weight:bold;">
+         Logout
         </a>
 
     </div>
